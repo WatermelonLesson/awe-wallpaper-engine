@@ -10,8 +10,10 @@
 		<link rel="icon" href="favicon.ico" type="image/x-icon">
 	</head>
 	
-	<body><!-- rgb(253, 235, 187) : nice background colour -->
+	<body>
 		<div class="bg-image">
+			<div class="preview"></div>
+			
 			<main>
 				<h1>Hello, world!</h1>
 				
@@ -29,13 +31,16 @@
 					<input type="number" id="circles" min="0" max="100" value="20"><br>
 					
 					<label for="red">Red: </label>
-					<input type="range" id="red" min="0" max="255" value="1000"><br>
+					<input type="range" id="red" min="0" max="255" value="253"><br>
 					
 					<label for="green">green: </label>
-					<input type="range" id="green" min="0" max="255" value="1000"><br>
+					<input type="range" id="green" min="0" max="255" value="235"><br>
 					
 					<label for="blue">blue: </label>
-					<input type="range" id="blue" min="0" max="255" value="1000"><br>
+					<input type="range" id="blue" min="0" max="255" value="187"><br>
+					
+					<label for="color">Color</label>
+					<input type="color" id="color">
 					
 					<label for="animate">Animate?</animate>
 					<input type="checkbox" id="animate">
@@ -85,6 +90,8 @@
 					let y = Math.floor(Math.random() * CANVAS_ELEMENT.height);
 					
 					let colour = randomColour();
+					let color = document.querySelector("input[type=color]").value;
+					
 					CANVAS_CONTEXT.fillStyle = "rgba(" + colour[0] + ", " + colour[1] + ", " + colour[2] +", " + colour[3] + ")";
 					
 					if (i < number_of_boxes) {
@@ -162,6 +169,12 @@
 					// console.log("Not checked.");
 					clearInterval(interval);
 				}
+			});
+			
+			document.querySelector("input[type=color]").addEventListener("input", function (e) {
+				console.log("Color");
+				let color = document.querySelector("input[type=color]").value;
+				document.querySelector("div.bg-image").style.backgroundColor = color;
 			});
 		</script>
 	</body>

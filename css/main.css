@@ -15,20 +15,21 @@ div.bg-image {
 	height: 100%;
 	background-repeat: no-repeat;
 	background-size: cover;
-	display: flex;
-	text-align: center;
+	display: grid;
 	justify-content: center;
-	align-content: center;
-	background-color: rgb(12, 34, 120);
+	align-content: right;
+	background-color: rgb(253, 235, 187);
 }
 
 main {
-	text-align: center;
-	background-color: rgba(0, 0, 0, 0.75);
-	color: white;
-	border: 0.25em solid #FFF;
-	height: 50%;
-	border-radius: 25px;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #FFF;
+	width: 50vw;
+	height: 100vh;
+}
+
+div.preview {
+	width: 50vw;
 }
 
 canvas {
