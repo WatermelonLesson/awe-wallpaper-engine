@@ -4,6 +4,120 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
+		<title>AWE Abstract Wallpaper Engine</title>
+		
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	
+	<body>
+		<main>
+			<form class="elevated-form" name="">
+				<fieldset>
+					<legend>Wallpaper Settings</legend>
+					
+					<label for="bg_width">Width: </label>
+					<input type="number" value="1920" id="bg_width" min="1" max="99999">
+					
+					<label for="bg_height">Height: </label>
+					<input type="number" value="1080" id="bg_height" min="1" max="99999">
+					
+					<label for="num_rectangles">Number of Rectangles: </label>
+					<input type="range" value="10" id="num_rectangles" min="0" max="100">
+					
+					<label for="num_arcs">Number of Arcs: </label>
+					<input type="range" value="10" id="num_arcs" min="0" max="100">
+				</fieldset>
+				
+				<fieldset>
+					<legend>Color Choices</legend>
+					
+					<label for="bg_color">Background Color: </label>
+					<input type="color" id="bg_color" value="#fdebbb">
+				</fieldset>
+				
+				<fieldset>
+					<legend>Animation</legend>
+					
+					<label for="animation_checkbox">Begin Animation: </label>
+					<input type="checkbox" id="animation_checkbox">
+					
+					<label for="animation_range">Refresh Rate</label>
+					<input type="range" value="100" step="50" min="50" max="1000" id="animation_range">
+				</fieldset>
+				
+				<button class="form_button">Generate Background</button>
+			</form>
+			
+			<canvas width="1920" height="1080"></canvas>
+		</main>
+		
+		<script>
+			const CANVAS_ELEMENT = document.querySelector("canvas");
+			const CANVAS_CONTEXT = CANVAS_ELEMENT.getContext("2d");
+
+			let num_arcs = document.querySelector("input[type=range]#num_arcs").value;
+			let num_rect = document.querySelector("input[type=range]#num_rectangles").value;
+			
+			let animation_interval = null;
+			
+			resetBackground();
+			
+			function getRandomColor() {
+				// Returns RGBa (red, green, blue, alpha)
+				return [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.random()];
+			}
+			
+			function resetBackground() {
+				// -- //
+				CANVAS_CONTEXT.clearRect(0, 0, CANVAS_ELEMENT.width, CANVAS_ELEMENT.height);
+				
+				let num_shapes = num_arcs + num_rect;
+				
+				for(i = 0; i < num_shapes; i++) {
+					let xPos = Math.floor(Math.random() * CANVAS_ELEMENT.width);
+					let yPos = Math.floor(Math.random() * CANVAS_ELEMENT.height);
+					
+					let shapeColor = getRandomColor();
+					let backgroundColor = document.querySelector("input[type=color]").value;
+					
+					CANVAS_CONTEXT.fillStyle = "rgba(" + shapeColor[0] + ", " + shapeColor[1] + ", " + shapeColor[2] + ", " + shapeColor[3] + ")";
+					
+					if (i < num_rect) {
+						CANVAS_CONTEXT.fillRect(xPos, yPos, Math.floor(Math.random() * 250), Math.floor(Math.random() * 250));
+					}
+					
+					if (i < num_arcs) {
+						CANVAS_CONTEXT.beginPath();
+						
+						let radius = Math.floor(Math.random() * 250);
+						let startAngle = 0;
+						let endAngle = Math.random() * (2 * Math.PI);
+					
+						CANVAS_CONTEXT.arc(xPos, yPos, radius, startAngle, endAngle);
+						CANVAS_CONTEXT.fill();
+					}
+				}
+				
+				document.querySelector('main').style.backgroundImage = "url(" + CANVAS_ELEMENT.toDataURL() + ")";
+			}
+			
+			document.querySelector("button.form_button").addEventListener("click", function(e) {
+				e.preventDefault();
+				resetBackground();
+			});
+		</script>
+		<script src="js/form_controls.js"></script>
+	</body>
+</html>
+
+<!--<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
 		<title>Abstract Wallpaper Engine</title>
 		
 		<link rel="stylesheet" type="text/css" href="css/main.css">
@@ -50,7 +164,7 @@
 				
 				<p>Click <a href="#">here to download</a>.</p>
 				
-				<button class="refresh">Refresh</button>
+				<button class="refresh">Generate a new Background!</button>
 				
 				<canvas width="500px" height="800px"></canvas>
 			</main>
