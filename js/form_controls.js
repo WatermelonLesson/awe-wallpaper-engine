@@ -1,5 +1,10 @@
-document.querySelectorAll("input").forEach(el => {
-	el.addEventListener("input", function(e) {
+document.querySelectorAll("input").forEach(element => {
+	element.addEventListener("input", function(e) {
+
+		if (e.target.nextElementSibling.tagName === "OUTPUT") {
+			e.target.nextElementSibling.textContent = e.target.value;
+		}
+
 		if (e.target.id === "bg_width") {
 			CANVAS_ELEMENT.width = e.target.value;
 		}

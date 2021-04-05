@@ -25,9 +25,11 @@
 					
 					<label for="num_rectangles">Number of Rectangles: </label>
 					<input type="range" value="10" id="num_rectangles" min="0" max="100">
+					<output>10</output>
 					
 					<label for="num_arcs">Number of Arcs: </label>
 					<input type="range" value="10" id="num_arcs" min="0" max="100">
+					<output>10</output>
 				</fieldset>
 				
 				<fieldset>
@@ -35,19 +37,23 @@
 					
 					<label for="bg_color">Background Color: </label>
 					<input type="color" id="bg_color" value="#fdebbb">
+					<output>fdebbb</output>
 				</fieldset>
 				
 				<fieldset>
 					<legend>Animation</legend>
 					
-					<label for="animation_checkbox">Begin Animation: </label>
+					<label for="animation_checkbox">Toggle Animation </label>
 					<input type="checkbox" id="animation_checkbox">
 					
-					<label for="animation_range">Refresh Rate</label>
-					<input type="range" value="100" step="50" min="50" max="1000" id="animation_range">
+					<label for="animation_range">Interval between canvas refresh: </label>
+					<input type="range" value="100" step="1" min="1" max="1000" id="animation_range">
+
+					<output class="refresh-rate-output">100 ms</output>
 				</fieldset>
 				
 				<button class="form_button">Generate Background</button>
+				<button class="reset_button">Reset Settings</button>
 			</form>
 			
 			<canvas width="1920" height="1080"></canvas>
@@ -56,6 +62,16 @@
 		<script>
 			const CANVAS_ELEMENT = document.querySelector("canvas");
 			const CANVAS_CONTEXT = CANVAS_ELEMENT.getContext("2d");
+
+			const DEFAULT_ = [
+				1920,
+				1080,
+				10,
+				10,
+				"#fdebbb",
+				null,
+				100
+			];
 
 			let num_arcs = document.querySelector("input[type=range]#num_arcs").value;
 			let num_rect = document.querySelector("input[type=range]#num_rectangles").value;
@@ -107,7 +123,21 @@
 				e.preventDefault();
 				resetBackground();
 			});
+
+			function resetSettings(element, index, array) {
+				element.value = DEFAULT_[index];
+				if (element.nextElementSibling.tagName === "OUTPUT") {
+					element.nextElementSibling.value = DEFAULT_[index];
+				}
+			}
+
+			document.querySelector("button.reset_button").addEventListener("click", function (e) {
+				e.preventDefault();
+
+				document.querySelectorAll("input").forEach(resetSettings);
+			})
 		</script>
+
 		<script src="js/form_controls.js"></script>
 	</body>
 </html>

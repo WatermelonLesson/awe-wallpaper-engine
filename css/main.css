@@ -39,16 +39,30 @@ form {
 }
 
 form > fieldset {
-	padding: 1em;
+	display: grid;
+}
+
+form > fieldset > legend {
+	color: #4d00ac;
+	font-weight: bold;
+	padding: 0 0.5em 0 0.5em;
+}
+
+form > fieldset > label {
+	width: 100%;
 	text-align: left;
+	font-weight: bold;
+	padding: 0 5%;
+	grid-column: 1 / 2;
 }
 
 form > fieldset > input {
 	width: 100%;
+	grid-column: 2 / 3;
 }
 
-form > fieldset > input[type=checkbox] {
-	
+form > fieldset > output {
+	grid-column: 3 / 4;
 }
 
 form > button {
