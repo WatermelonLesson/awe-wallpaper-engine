@@ -126,9 +126,12 @@
 
 			function resetSettings(element, index, array) {
 				element.value = DEFAULT_[index];
+
 				if (element.nextElementSibling.tagName === "OUTPUT") {
 					element.nextElementSibling.value = DEFAULT_[index];
 				}
+
+				element.dispatchEvent(new Event("input"));
 			}
 
 			document.querySelector("button.reset_button").addEventListener("click", function (e) {
