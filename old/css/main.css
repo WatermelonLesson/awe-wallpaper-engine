@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+main {
+	display: grid;
+	
+	font-size: 14px;
+	
+	grid-template-rows: repeat(4, 25%);
+	grid-template-columns: repeat(4, 25%);
+	
+	height: 100vh;
+	
+	background-color: #fdebbb;
+}
+
+canvas {
+	grid-row: 3;
+	grid-column: 2;
+	
+	display: none;
+}
+
+/* -- Form -- */
+
+form {
+	grid-row: 2 / 4;
+	grid-column: 2 / 4;
+	font-family: Verdana, Arial, sans-serif;
+
+	padding: 1em;
+	text-align: center;
+	border-radius: 25px;
+	background-color: #CCC;
+
+    display: grid;
+}
+
+form > fieldset {
+	display: grid;
+}
+
+form > fieldset > legend {
+	color: #4d00ac;
+	font-weight: bold;
+	padding: 0 0.5em 0 0.5em;
+}
+
+form > fieldset > label {
+	width: 100%;
+	text-align: left;
+	font-weight: bold;
+	padding: 0 5%;
+	grid-column: 1 / 2;
+}
+
+form > fieldset > input {
+	width: 100%;
+	grid-column: 2 / 3;
+}
+
+form > fieldset > output {
+	grid-column: 3 / 4;
+}
+
+form > button {
+	font-family: Verdana;
+	font-weight: 1.5em;
+	padding: 1em;
+	font-weight: 400;
+	border-radius: 1em;
+	background-color: #00CC00;
+	color: #FFF;
+	border-color: #123546;
+	font-variant: petite-caps;
+}
+
+form > button:hover {
+	cursor: pointer;
+	font-weight: 800;
+	text-decoration: underline;
+	box-shadow: 0.25em 0.5em rgba(30, 21, 32, 0.6);
+}

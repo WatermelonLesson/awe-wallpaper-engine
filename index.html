@@ -1,328 +1,87 @@
 <!DOCTYPE HTML>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<title>AWE Abstract Wallpaper Engine</title>
-		
-		<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-	</head>
-	
-	<body>
-		<main>
-			<form class="elevated-form" name="">
-				<fieldset>
-					<legend>Wallpaper Settings</legend>
-					
-					<label for="bg_width">Width: </label>
-					<input type="number" value="1920" id="bg_width" min="1" max="99999">
-					
-					<label for="bg_height">Height: </label>
-					<input type="number" value="1080" id="bg_height" min="1" max="99999">
-					
-					<label for="num_rectangles">Number of Rectangles: </label>
-					<input type="range" value="10" id="num_rectangles" min="0" max="100">
-					<output>10</output>
-					
-					<label for="num_arcs">Number of Arcs: </label>
-					<input type="range" value="10" id="num_arcs" min="0" max="100">
-					<output>10</output>
-				</fieldset>
-				
-				<fieldset>
-					<legend>Color Choices</legend>
-					
-					<label for="bg_color">Background Color: </label>
-					<input type="color" id="bg_color" value="#fdebbb">
-					<output>fdebbb</output>
-				</fieldset>
-				
-				<fieldset>
-					<legend>Animation</legend>
-					
-					<label for="animation_checkbox">Toggle Animation </label>
-					<input type="checkbox" id="animation_checkbox">
-					
-					<label for="animation_range">Interval between canvas refresh: </label>
-					<input type="range" value="100" step="1" min="1" max="1000" id="animation_range">
+        <title>AWE - Abstract Wallpaper Engine</title>
 
-					<output class="refresh-rate-output">100 ms</output>
-				</fieldset>
-				
-				<button class="form_button">Generate Background</button>
-				<button class="reset_button">Reset Settings</button>
-			</form>
-			
-			<canvas width="1920" height="1080"></canvas>
-		</main>
-		
-		<script>
-			const CANVAS_ELEMENT = document.querySelector("canvas");
-			const CANVAS_CONTEXT = CANVAS_ELEMENT.getContext("2d");
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+    </head>
 
-			const DEFAULT_ = [
-				1920,
-				1080,
-				10,
-				10,
-				"#fdebbb",
-				null,
-				100
-			];
+    <body>
+        <main>
+            <form class="elevated-form">
+                <fieldset>
+                    <legend>Hello, world</legend>
 
-			let num_arcs = document.querySelector("input[type=range]#num_arcs").value;
-			let num_rect = document.querySelector("input[type=range]#num_rectangles").value;
-			
-			let animation_interval = null;
-			
-			resetBackground();
-			
-			function getRandomColor() {
-				// Returns RGBa (red, green, blue, alpha)
-				return [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.random()];
-			}
-			
-			function resetBackground() {
-				// -- //
-				CANVAS_CONTEXT.clearRect(0, 0, CANVAS_ELEMENT.width, CANVAS_ELEMENT.height);
-				
-				let num_shapes = num_arcs + num_rect;
-				
-				for(i = 0; i < num_shapes; i++) {
-					let xPos = Math.floor(Math.random() * CANVAS_ELEMENT.width);
-					let yPos = Math.floor(Math.random() * CANVAS_ELEMENT.height);
-					
-					let shapeColor = getRandomColor();
-					let backgroundColor = document.querySelector("input[type=color]").value;
-					
-					CANVAS_CONTEXT.fillStyle = "rgba(" + shapeColor[0] + ", " + shapeColor[1] + ", " + shapeColor[2] + ", " + shapeColor[3] + ")";
-					
-					if (i < num_rect) {
-						CANVAS_CONTEXT.fillRect(xPos, yPos, Math.floor(Math.random() * 250), Math.floor(Math.random() * 250));
-					}
-					
-					if (i < num_arcs) {
-						CANVAS_CONTEXT.beginPath();
-						
-						let radius = Math.floor(Math.random() * 250);
-						let startAngle = 0;
-						let endAngle = Math.random() * (2 * Math.PI);
-					
-						CANVAS_CONTEXT.arc(xPos, yPos, radius, startAngle, endAngle);
-						CANVAS_CONTEXT.fill();
-					}
-				}
-				
-				document.querySelector('main').style.backgroundImage = "url(" + CANVAS_ELEMENT.toDataURL() + ")";
-			}
-			
-			document.querySelector("button.form_button").addEventListener("click", function(e) {
-				e.preventDefault();
-				resetBackground();
-			});
+                    <button id="download-background-button">Download background</button>
+                    <button id="reset-settings-button">Reset settings</button>
+                    <button id="hide-form-button">Hide form</button>
+                </fieldset>
 
-			function resetSettings(element, index, array) {
-				element.value = DEFAULT_[index];
+                <fieldset>
+                    <legend>Wallpaper Settings</legend>
 
-				if (element.nextElementSibling.tagName === "OUTPUT") {
-					element.nextElementSibling.value = DEFAULT_[index];
-				}
+                    <label for="setting-bg-width">Width</label>
+                    <input type="number" value="1920" min="320" max="15360" id="setting-bg-width">
 
-				element.dispatchEvent(new Event("input"));
-			}
+                    <label for="setting-bg-height">Height</label>
+                    <input type="number" value="1080" min="320" max="15360" id="setting-bg-height">
 
-			document.querySelector("button.reset_button").addEventListener("click", function (e) {
-				e.preventDefault();
+                    <label for="amount-rectangles">Number of Rectangles</label>
+                    <input type="number" value="50" min="0" max="500" id="amount-rectangles" step="5">
 
-				document.querySelectorAll("input").forEach(resetSettings);
-			})
-		</script>
+                    <label for="amount-arcs">Number of Arcs</label>
+                    <input type="number" value="25" min="0" max="500" id="amount-arcs" step="5">
+                </fieldset>
 
-		<script src="js/form_controls.js"></script>
-	</body>
-</html>
+                <fieldset>
+                    <legend>Colour Choices</legend>
 
-<!--<!DOCTYPE HTML>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<title>Abstract Wallpaper Engine</title>
-		
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="icon" href="favicon.ico" type="image/x-icon">
-	</head>
-	
-	<body>
-		<div class="bg-image">
-			<div class="preview"></div>
-			
-			<main>
-				<h1>Hello, world!</h1>
-				
-				<form class="">
-					<label for="width">Width: </label>
-					<input type="number" value="1920" id="width" min="1" max="9999"><br>
-					
-					<label for="height">Height: </label>
-					<input type="number" value="1080" id="height" min="1" max="9999"><br>
-					
-					<label for="boxes">Number of Boxes: </label>
-					<input type="number" id="boxes" min="0" max="1000" value="10"><br>
-					
-					<label for="circles">Number of Circles: </label>
-					<input type="number" id="circles" min="0" max="100" value="20"><br>
-					
-					<label for="red">Red: </label>
-					<input type="range" id="red" min="0" max="255" value="253"><br>
-					
-					<label for="green">green: </label>
-					<input type="range" id="green" min="0" max="255" value="235"><br>
-					
-					<label for="blue">blue: </label>
-					<input type="range" id="blue" min="0" max="255" value="187"><br>
-					
-					<label for="color">Color</label>
-					<input type="color" id="color">
-					
-					<label for="animate">Animate?</animate>
-					<input type="checkbox" id="animate">
-					
-					<input type="submit" name="submit">
-				</form>
-				
-				<p>Click <a href="#">here to download</a>.</p>
-				
-				<button class="refresh">Generate a new Background!</button>
-				
-				<canvas width="500px" height="800px"></canvas>
-			</main>
-		</div>
-		
-		<script>
-			const CANVAS_ELEMENT = document.querySelector('canvas');
-			const CANVAS_CONTEXT = CANVAS_ELEMENT.getContext('2d');
-			
-			CANVAS_ELEMENT.width = document.querySelector("input#width").value;
-			CANVAS_ELEMENT.height = document.querySelector("input#height").value;
-			
-			let number_of_boxes = document.querySelector("input#boxes").value;
-			let number_of_circles = document.querySelector("input#circles").value;
-			
-			let interval = "";
-			
-			lame();
+                    <label for="bg-color-button">Background Colour</label>
+                    <input type="color" value="#556CAF" id="bg-color-button">
+                </fieldset>
 
-			function randomColour() {
-				let r = Math.floor(Math.random() * 255);
-				let g = Math.floor(Math.random() * 255);
-				let b = Math.floor(Math.random() * 255);
-				let a = Math.random();
-				
-				// console.log([r, g, b, a]);
-				
-				return [r, g, b, a];
-			}
-			
-			function lame() {
-				CANVAS_CONTEXT.clearRect(0, 0, CANVAS_ELEMENT.width, CANVAS_ELEMENT.height);
-				
-				for (i = 0; i < number_of_boxes + number_of_circles; i++)
-				{
-					let x = Math.floor(Math.random() * CANVAS_ELEMENT.width);
-					let y = Math.floor(Math.random() * CANVAS_ELEMENT.height);
-					
-					let colour = randomColour();
-					let color = document.querySelector("input[type=color]").value;
-					
-					CANVAS_CONTEXT.fillStyle = "rgba(" + colour[0] + ", " + colour[1] + ", " + colour[2] +", " + colour[3] + ")";
-					
-					if (i < number_of_boxes) {
-						let width = Math.floor(Math.random() * 250);
-						let height = Math.floor(Math.random() * 550);
-						CANVAS_CONTEXT.fillRect(x, y, width, height);
-					}
-					
-					if (i < number_of_circles) {
-						CANVAS_CONTEXT.beginPath();
-						
-						let radius = Math.floor(Math.random() * 250);
-						let startAngle = 0;
-						let endAngle = Math.random() * (2 * Math.PI);
-					
-						CANVAS_CONTEXT.arc(x, y, radius, startAngle, endAngle);
-						CANVAS_CONTEXT.fill();
-					}
-				}
-				
-				document.querySelector('div.bg-image').style.backgroundImage = "url(" + CANVAS_ELEMENT.toDataURL() + ")";
-				document.querySelector('a').href = CANVAS_ELEMENT.toDataURL();
-				document.querySelector('a').download = 'wallpaper.png';
-			}
-			
-			document.querySelector("button.refresh").addEventListener("click", function(e) {
-				e.preventDefault();
-				lame();
-			});
-			
-			document.querySelector("input[type=submit]").addEventListener("click", function(e) {
-				e.preventDefault();
-				
-				console.log("Submitted.");
-				console.log("Calculating aspect ratio...");
-			});
-			
-			document.querySelectorAll("input[type=number]").forEach(element => {
-				element.addEventListener("input", function(e) {
-					if (e.target.id === "width") {
-						CANVAS_ELEMENT.width = e.target.value;
-					}
-					else if (e.target.id === "height") {
-						CANVAS_ELEMENT.height = e.target.value;
-					}
-					else if (e.target.id === "boxes") {
-						number_of_boxes = e.target.value;
-					}
-					else if (e.target.id === "circles") {
-						number_of_circles = e.target.value;
-					}
-					
-					// console.log(e.target);
-				});
-			});
-			
-			document.querySelectorAll("input[type=range]").forEach(element => {
-				element.addEventListener("input", function (e) {
-					let r = document.querySelector("input[type=range]#red").value;
-					let g = document.querySelector("input[type=range]#green").value;
-					let b = document.querySelector("input[type=range]#blue").value;
-					
-					let rgb = "rgb(" + r + ", " + g + ", " + b + ")";
-					
-					document.querySelector("div.bg-image").style.backgroundColor = rgb;
-				});
-			});
-			
-			document.querySelector('input[type=checkbox]').addEventListener("change", function (e) {
-				if (e.target.checked) {
-					// console.log("Checked.");
-					interval = setInterval(lame, 100);
-				}
-				else {
-					// console.log("Not checked.");
-					clearInterval(interval);
-				}
-			});
-			
-			document.querySelector("input[type=color]").addEventListener("input", function (e) {
-				console.log("Color");
-				let color = document.querySelector("input[type=color]").value;
-				document.querySelector("div.bg-image").style.backgroundColor = color;
-			});
-		</script>
-	</body>
+                <fieldset>
+                    <legend>Animation Settings</legend>
+
+                    <label for="frame-rate-target">Target Frame Rate</label>
+                    <input type="number" value="60" id="frame-rate-target" min = "0" max="360" step="5">
+
+                    <input type="button" id="animation-toggle" value="Begin Animation">
+                </fieldset>
+
+                <input type="submit" value="Generate a new background" id="submission-button">
+            </form>
+
+            <canvas width="1920" height="1080" id="bg_canvas"></canvas>
+
+            <script src="js/main.js"></script>
+            <script src="js/handlers.js"></script>
+            <script>
+                const canvas = document.querySelector("canvas#bg_canvas");
+                const context = canvas.getContext("2d");
+
+                const default_settings = [
+                    screen.width,       // -- Width
+                    screen.height,       // -- Height
+                    50,         // -- Number of Rectangles
+                    25,         // -- Number of Arcs
+                    "#556CAF",  // -- Background Colour
+                    10,         // -- FPS
+                    0           // -- Animating?
+                ];
+
+                resetSettings();
+                let settings = default_settings;
+                
+                generateBackground(canvas, context, settings);
+                document.body.style.backgroundColor = settings[4];
+
+                document.querySelector("form").addEventListener("input", inputHandler);
+                document.querySelector("form").addEventListener("click", buttonHandler);
+            </script>
+        </main>
+    </body>
 </html>
