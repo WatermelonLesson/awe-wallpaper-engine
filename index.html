@@ -56,6 +56,7 @@
             </form>
 
             <canvas width="1920" height="1080" id="bg_canvas"></canvas>
+            <canvas width="1920" height="1080" id="dummy_canvas"></canvas>
 
             <script src="js/main.js"></script>
             <script src="js/handlers.js"></script>
@@ -63,14 +64,18 @@
                 const canvas = document.querySelector("canvas#bg_canvas");
                 const context = canvas.getContext("2d");
 
+                const dummy_canvas = document.querySelector("canvas#dummy_canvas");
+                const dummy_context = dummy_canvas.getContext("2d");
+
                 const default_settings = [
-                    screen.width,       // -- Width
-                    screen.height,       // -- Height
-                    50,         // -- Number of Rectangles
-                    25,         // -- Number of Arcs
-                    "#556CAF",  // -- Background Colour
-                    10,         // -- FPS
-                    0           // -- Animating?
+                    screen.width,   // -- Width
+                    screen.height,  // -- Height
+                    50,             // -- Number of Rectangles
+                    25,             // -- Number of Arcs
+                    "#556CAF",      // -- Background Colour
+                    10,             // -- FPS
+                    0,              // -- Animating?
+                    0               // -- Form hidden?
                 ];
 
                 resetSettings();

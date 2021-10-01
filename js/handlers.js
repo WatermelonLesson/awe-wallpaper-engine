@@ -55,24 +55,41 @@ function buttonHandler(e)
 
         canvas.width = settings[0];
         canvas.height = settings[1];
-        canvas.style.width = settings[0];
-        canvas.style.height = settings[1];
+
+        dummy_canvas.width = settings[0];
+        dummy_canvas.height = settings[1];
     }
     else if (e.target.id === "download-background-button")
     {
         let a = document.createElement("a");
 
-        context.save();
+        dummy_context.drawImage(canvas, 0, 0);
 
-        fillCanvasBackgroundWithColor(canvas, context, settings[4]);
-        a.href = canvas.toDataURL();
-        a.download = "image.png";
+        dummy_context.save();
+        fillCanvasBackgroundWithColor(dummy_canvas, dummy_context, settings[4]);
+        dummy_context.restore();
+
+        a.href = dummy_canvas.toDataURL();
+        a.download = "awe-background-image.png";
         a.click();
-
-        context.restore();
+        
+        dummy_context.clearRect(0, 0, dummy_canvas.width, dummy_canvas.height);
     }
     else if (e.target.id === "reset-settings-button")
     {
         resetSettings();
+    }
+    else if (e.target.id === "hide-form-button")
+    {
+        if (settings[7] === 0)
+        {
+            settings[7] = 1;
+            document.querySelector("form").classList.add("hidden");
+        }
+        else
+        {
+            settings[7] = 0;
+            document.querySelector("form").classList.remove("hidden");
+        }
     }
 }

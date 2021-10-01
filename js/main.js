@@ -58,6 +58,9 @@ function resetSettings()
     canvas.width = default_settings[0];
     canvas.height = default_settings[1];
     
+    dummy_canvas.width = default_settings[0];
+    dummy_canvas.height = default_settings[1];
+    
     document.querySelector("input#setting-bg-width").value  = default_settings[0];
     document.querySelector("input#setting-bg-height").value = default_settings[1];
     document.querySelector("input#amount-rectangles").value = default_settings[2];
