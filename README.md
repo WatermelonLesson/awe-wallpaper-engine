@@ -13,26 +13,26 @@ they so desire, can elect to begin an animation where the canvas is redrawn ever
 
 This is a simple unordered list of things I'd like to add before I can call this complete. Not all of the features will be added.
 
-- Add more shape choices.
-- Refine the UI controls.
-- Automatically determine user's device resolution
-- Create scaled preview and blur background
+- [] Add more shape choices.
+- [x] Refine the UI controls.
+- [x] Automatically determine user's device resolution~~
+- [x] Create scaled preview and ~~blur background~~
 	- The `css blur-background` attribute doesn't have support in Firefox unless the user enables it, so this might require a polyfill.
 	- The scaled preview will probably just determine aspect ratio from the device resolution and then scale according to window size.
-- Fix `javascript setInterval()` performance issues in Firefox.
+- [] Fix `javascript setInterval()` performance issues in Firefox.
 	- This might require using `javascript requestAnimationFrame()` after some cursory investigations.
-- Change the canvas background colour so that the wallpaper isn't transparent.
+- [x] Change the canvas background colour so that the wallpaper isn't transparent.
 	- I will keep the option to download with a transparent background.
-- Create a proper favicon.
-- Make the download link more obvious and accessible.
-- Refine text size.
-- Work on responsive design.
-- Investigate using cookies (using only JavaScript) to store user's choices. So far, only Firefox will keep settings upon refresh.
-- Investigate methods to reduce time on DOM Event after clicking refresh. Firefox currently records 180-200ms event times.
-- Implement colour wheel, and show current background in RGB, HSL, and hexadecimal values.
-- Investigate ways to determine / provide colour and transparency of individual shapes.
-- Finish this README.
+- [] Create a proper favicon.
+- [x] Make the download link more obvious and accessible.~~
+- [x] Refine text size.~~
+- [x] Work on responsive design.~~
+- [] Investigate using cookies (using only JavaScript) to store user's choices. So far, only Firefox will keep settings upon refresh.
+- [] Investigate methods to reduce time on DOM Event after clicking refresh. Firefox currently records 180-200ms event times.
+- ~~[] Implement colour wheel, and show current background in RGB, HSL, and hexadecimal values.~~
+    - Decided to
+- ~~[] Investigate ways to determine / provide colour and transparency of individual shapes.~~
 
 ## License
 
-Obviously, I coded this myself but the code is distributed under the MIT License. You're free to do whatever you want with this code.
+I hereby distribute this code under the MIT License, which can be read in LICENSE.

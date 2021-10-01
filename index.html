@@ -7,20 +7,21 @@
         <title>AWE - Abstract Wallpaper Engine</title>
 
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css">
     </head>
 
     <body>
         <main>
-            <form class="elevated-form">
-                <fieldset>
+            <form>
+                <fieldset class="meta">
                     <legend>Hello, world</legend>
 
-                    <button id="download-background-button">Download background</button>
-                    <button id="reset-settings-button">Reset settings</button>
-                    <button id="hide-form-button">Hide form</button>
+                    <button id="download-background-button"><i class="fas fa-arrow-circle-down"></i> Download</button>
+                    <button id="reset-settings-button"><i class="fas fa-redo-alt"></i> Reset</button>
+                    <button id="hide-form-button"><i class="fas fa-compress-alt"></i> Minimise</button>
                 </fieldset>
 
-                <fieldset>
+                <fieldset class="settings">
                     <legend>Wallpaper Settings</legend>
 
                     <label for="setting-bg-width">Width</label>
@@ -36,23 +37,22 @@
                     <input type="number" value="25" min="0" max="500" id="amount-arcs" step="5">
                 </fieldset>
 
-                <fieldset>
+                <fieldset class="settings">
                     <legend>Colour Choices</legend>
 
                     <label for="bg-color-button">Background Colour</label>
                     <input type="color" value="#556CAF" id="bg-color-button">
                 </fieldset>
 
-                <fieldset>
+                <fieldset class="settings">
                     <legend>Animation Settings</legend>
 
                     <label for="frame-rate-target">Target Frame Rate</label>
                     <input type="number" value="60" id="frame-rate-target" min = "0" max="360" step="5">
-
-                    <input type="button" id="animation-toggle" value="Begin Animation">
                 </fieldset>
 
-                <input type="submit" value="Generate a new background" id="submission-button">
+                <input type="button" id="animation-toggle" value="Animate">
+                <input type="submit" value="New Background" id="submission-button">
             </form>
 
             <canvas width="1920" height="1080" id="bg_canvas"></canvas>
@@ -78,11 +78,22 @@
                     0               // -- Form hidden?
                 ];
 
+                /* 
+                    Since JavaScript is a 'call by sharing' language, if we simply write
+                        let settings = default_settings;
+                    the variable `settings` would contain a reference to `default_settings`.
+                    This means, of course, that any modification to an entry in `settings`
+                    will modify the respective entry in `default_settings`.
+                    
+                    So here we force the values of `default_settings` to be copied into 
+                    `settings`. We use a for loop because it's (a) more convenient and (b) 
+                    will expand if I ever decide to add more settings to the form.
+                                                                                            */
+
+                let settings = '';
+
                 resetSettings();
-                let settings = default_settings;
-                
                 generateBackground(canvas, context, settings);
-                document.body.style.backgroundColor = settings[4];
 
                 document.querySelector("form").addEventListener("input", inputHandler);
                 document.querySelector("form").addEventListener("click", buttonHandler);

@@ -3,6 +3,8 @@
 body {
     margin: 0;
     padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 main {
@@ -12,7 +14,7 @@ main {
     background-size: cover;
     background-repeat: no-repeat;
 
-    display: grid;   
+    display: grid;
 }
 
 canvas {
@@ -20,12 +22,128 @@ canvas {
 }
 
 form {
-    background-color: #C1C1C1;
+    background-color: #1C1C1C;
 
-    justify-self: center;
-    align-self: center;
+    justify-self: end;
+    align-self: end;
+
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    width: 30vw;
 }
 
-form input[type=number]:valid {
-    background-color: green;
+form > input, form > fieldset > label, form > fieldset > input, form > fieldset > button {
+    text-align: center;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form > fieldset {
+    grid-column: 1 / end;
+}
+
+form > fieldset > legend {
+    color: #FFF;
+    font-weight: bold;
+}
+
+form > fieldset > label {
+    color: #FFF;
+    font-weight: bold;
+    text-align: right;
+}
+
+form > fieldset > input {
+    text-align: right;
+    word-spacing: 4px;
+    width: 90%;
+    border-radius: 3px;
+    justify-self: end;
+}
+
+form.hidden > fieldset.settings {
+    display: none;
+}
+
+form > fieldset.meta
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+form > fieldset.meta > button
+{
+    width: 30%;
+}
+
+form > fieldset.settings
+{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+}
+
+form > fieldset.settings > label {
+    grid-column: 1 / 2;
+}
+
+form > fieldset.settings > input {
+    grid-column: 2 / end;
+}
+
+form > fieldset.settings > input[type=button]
+{
+    grid-column: 1 / end;
+}
+
+button, form > fieldset > input[type=button], form > input[type=submit] {
+    width: 100%;
+    justify-self: end;
+}
+
+form > input[type=submit] {
+    justify-self: start;;
+}
+
+button, input[type=button], input[type=submit] {
+    color: #FFF;
+    line-height: 1.5em;
+    background-color: #556CAF;
+
+    border: 0.25em solid #5030C0;
+}
+
+button:hover, input[type=button]:hover, input[type=submit]:hover {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #5030C0;
+}
+
+button:disabled, input[type=button]:disabled, input[type=submit]:disabled {
+    background-color: #555;
+    border-color: #555;
+}
+
+@media screen and (max-width: 1000px) {
+    form {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    form {
+        width: 70vw;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    form {
+        width: 90vw;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    form {
+        width: 100vw;
+        align-self: baseline;
+    }
 }
