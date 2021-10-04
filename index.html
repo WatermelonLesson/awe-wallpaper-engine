@@ -8,26 +8,31 @@
 
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css">
+
+        <script src="js/headers.js"></script>
+
+        <script type="text/javascript">
+        </script>
     </head>
 
     <body>
         <main>
             <form>
                 <fieldset class="meta">
-                    <legend>Hello, world</legend>
+                    <legend>Options</legend>
 
                     <button id="download-background-button"><i class="fas fa-arrow-circle-down"></i> Download</button>
                     <button id="reset-settings-button"><i class="fas fa-redo-alt"></i> Reset</button>
-                    <button id="hide-form-button"><i class="fas fa-compress-alt"></i> Minimise</button>
+                    <button id="hide-form-button"><i class="fas fa-compress-alt"></i> <span>Minimise</span></button>
                 </fieldset>
 
                 <fieldset class="settings">
                     <legend>Wallpaper Settings</legend>
 
-                    <label for="setting-bg-width">Width</label>
+                    <label for="setting-bg-width">Image Width</label>
                     <input type="number" value="1920" min="320" max="15360" id="setting-bg-width">
 
-                    <label for="setting-bg-height">Height</label>
+                    <label for="setting-bg-height">Image Height</label>
                     <input type="number" value="1080" min="320" max="15360" id="setting-bg-height">
 
                     <label for="amount-rectangles">Number of Rectangles</label>
@@ -35,6 +40,15 @@
 
                     <label for="amount-arcs">Number of Arcs</label>
                     <input type="number" value="25" min="0" max="500" id="amount-arcs" step="5">
+
+                    <label for="max-rectangle-width">Maximum Rectangle Width</label>
+                    <input type="range" min="0" max="5000" value="250" id="max-rectangle-width">
+
+                    <label for="max-rectangle-height">Maximum Rectangle Height</label>
+                    <input type="range" min="0" max="5000" value="250" id="max-rectangle-height">
+
+                    <label for="max-arc-radius">Maximum Arc Radius</label>
+                    <input type="range" min="0" max="5000" value="250" id="max-arc-radius">
                 </fieldset>
 
                 <fieldset class="settings">
@@ -67,16 +81,21 @@
                 const dummy_canvas = document.querySelector("canvas#dummy_canvas");
                 const dummy_context = dummy_canvas.getContext("2d");
 
-                const default_settings = [
-                    screen.width,   // -- Width
-                    screen.height,  // -- Height
-                    50,             // -- Number of Rectangles
-                    25,             // -- Number of Arcs
-                    "#556CAF",      // -- Background Colour
-                    10,             // -- FPS
-                    0,              // -- Animating?
-                    0               // -- Form hidden?
+                const word_list = [
+                    "wonder",
+                    "word",
+                    "sadness",
+                    "depression",
+                    "number", 
+                    "anger",
+                    "serenity",
+                    "rage",
+                    "amazed",
+                    "fine"
                 ];
+
+                
+                let default_settings = {};
 
                 /* 
                     Since JavaScript is a 'call by sharing' language, if we simply write
@@ -90,7 +109,55 @@
                     will expand if I ever decide to add more settings to the form.
                                                                                             */
 
-                let settings = '';
+                let settings = new Object();
+                defineDefault();
+
+                Object.defineProperties(settings, {
+                    "canvas_width": {
+                        value: 640,
+                        writable: true
+                    },
+                    "canvas_height": {
+                        value: 640,
+                        writable: true
+                    },
+                    "number_of_rectangles": {
+                        value: 640,
+                        writable: true
+                    },
+                    "number_of_arcs": {
+                        value: 640,
+                        writable: true
+                    },
+                    "max_rectangle_width": {
+                        value: 640,
+                        writable: true
+                    },
+                    "max_rectangle_height": {
+                        value: 640,
+                        writable: true
+                    },
+                    "max_arc_radius": {
+                        value: 640,
+                        writable: true
+                    },
+                    "background_colour": {
+                        value: "#FFFFFF",
+                        writable: true
+                    },
+                    "fps_target": {
+                        value: 640,
+                        writable: true
+                    },
+                    "currently_animating": {
+                        value: 640,
+                        writable: true
+                    },
+                    "form_hidden": {
+                        value: 640,
+                        writable: true
+                    }
+                });
 
                 resetSettings();
                 generateBackground(canvas, context, settings);
